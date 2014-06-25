@@ -9,6 +9,11 @@ Contents:
 
 - :ref:`machine-rep`
 - :ref:`linear-alg`
+- :ref:`optim`
+- :ref:`approx`
+- :ref:`quadrature`
+- :ref:`ode`
+- :ref:`pde`
 
 
 .. _machine-rep:
@@ -78,7 +83,7 @@ Linear algebra functions in ``Julia`` are largely implemented by calling functio
 Matrices factorization
 ^^^^^^^^^^^^^^^^^^^^^^
 
-For factorization algorithms, ``Julia`` has already implemented common routines as ``lu``, ``qr`` and ``schur``. The routines call ``LAPACK`` subroutines for decomposition algorithm in general. For example, ``lufact!`` calls ``LAPACK.getrf!`` to update matrices in place.
+For factorization algorithms, ``Julia`` has already implemented common routines as ``lu``, ``qr`` and ``chol``. The routines call ``LAPACK`` subroutines for decomposition algorithm in general. For example, ``lufact!`` calls ``LAPACK.getrf!`` to update matrices in place.
 
 .. code-block:: julia
     :emphasize-lines: 3
@@ -97,13 +102,31 @@ And ``LAPACK.getrf!`` calls ``getrf`` against the ``liblapack``.
         Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt},
         Ptr{BlasInt}, &m, &n, A, &lda, ipiv, info)
 
-Eigenvalues
-^^^^^^^^^^^^
+Eigenvalues & Singular Value
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The most common routines ``eig`` and ``svd`` call ``LAPACK.geevx!`` and ``LAPACK.gesdd!`` relatively. 
 
+``svds`` does not exist but can be found with external package -- ``Pkg.Add("IterativeSolvers")``.
 
 Solve ``Ax == b``
 ^^^^^^^^^^^^^^^^^
 Solving linear system involves `direct method`_ and `iterative method`_.
+
+``Julia`` has builtin function ``\(A,B)`` for solving linear system, which calls ``UMFPACK`` solver.
+
+For iterative methods, there are plenty of routines(preconditioned) to choose from, such as ``CG``, ``GMRES``, ``SOR``, ``SSOR``, ``Lanczos``.
+
+The above routines can be found through ``Pkg.Add("IterativeSolvers")``. 
+
+..  code-block:: julia
+
+    function cg(A::Union(AbstractMatrix, Function), b::Vector; tol::Real =
+        length(b)*eps(), maxIter::Int=length(b), P::Union(AbstractMatrix,
+        Function)=x->x, x::Vector=[], res::Int=0)
+
+
+
+
 
 
 .. _direct method: http://en.wikipedia.org/wiki/direct_method
@@ -115,6 +138,35 @@ Solving linear system involves `direct method`_ and `iterative method`_.
 
 
 
+.. _optim:
+
+Optimization
+-------------
+``JuliaOpt`` has built some handy tools on optimization, including ``Optim``. 
+
+.. _approx:
+
+Approximation & Differentiation
+--------------------------------
+
+
+
+
+.. _quadrature:
+
+Quadrature
+--------------
+
+
+.. _ode:
+
+Ordinary Differential Equation
+-------------------------------
+
+.. _pde:
+
+Partial Differential Equation
+------------------------------
 
 Symbolic Computation
 ===========================
