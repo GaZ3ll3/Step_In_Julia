@@ -5,6 +5,14 @@ Mathematics
 Numerical with Julia
 ====================
 
+Contents:
+
+- :ref:`machine-rep`
+- :ref:`linear-alg`
+
+
+.. _machine-rep:
+
 Machine Representation of Numbers
 --------------------------------------
 ``Julia`` supports multiple float-point types, including ``Float16`` (half), ``Float32`` (single) and  ``Float64`` (double). Half-precision floating-point numbers are only for storage format, when ``Float16`` type is involved in computation, it will be automatically promoted into ``Float32``. 
@@ -12,14 +20,14 @@ Machine Representation of Numbers
 .. code-block:: julia
     :linenos:
 
-    julia> siz`eof(1.0)
+    julia> sizeof(1.0)
     8
     julia> sizeof(float16(1.0))
     2
     julia> sizeof(float16(1.0)*2)
     4
 
-``NaN`` and ``Inf`` (as well as ``-Inf``) are special float-points, and can be cast into all float-point types also be used in arithmetic operations.
+``NaN`` and ``Inf`` (as well as ``-Inf``) are special float-points(IEC559), and can be cast into all float-point types also be used in arithmetic operations.
 
 .. code-block:: julia
     :linenos:
@@ -59,7 +67,7 @@ The default rounding mode is ``RoundNearest``, to change the mode, we can use ``
            end
     1.2
 
-
+.. _linear-alg:
 
 Linear Algebra
 ---------------
