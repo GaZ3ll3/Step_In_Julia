@@ -3,7 +3,7 @@ Mathematics
 ***************
 
 Numerical with Julia
-====================
+==========================
 
 Contents:
 
@@ -18,7 +18,7 @@ Machine Representation of Numbers
 ``Julia`` supports multiple float-point types, including ``Float16`` (half), ``Float32`` (single) and  ``Float64`` (double). Half-precision floating-point numbers are only for storage format, when ``Float16`` type is involved in computation, it will be automatically promoted into ``Float32``. 
 
 .. code-block:: julia
-    :linenos:
+
 
     julia> sizeof(1.0)
     8
@@ -30,7 +30,7 @@ Machine Representation of Numbers
 ``NaN`` and ``Inf`` (as well as ``-Inf``) are special float-points(IEC559), and can be cast into all float-point types also be used in arithmetic operations.
 
 .. code-block:: julia
-    :linenos:
+
 
     julia> Inf * Inf + Inf 
     Inf
@@ -40,7 +40,7 @@ Machine Representation of Numbers
 Epsilon function ``eps`` gives machine accuracy. For single and double accuracy, epsilon will be ``float32(2.0^-23)`` and ``2.0^-53`` relatively. Notice ``eps`` also can be used on ``Float16``, the result will be also a half precision number.
 
 .. code-block:: julia
-    :linenos:
+
 
     julia> eps(Float16)
     float16(0.00097656)
@@ -54,7 +54,7 @@ Epsilon function ``eps`` gives machine accuracy. For single and double accuracy,
 The default rounding mode is ``RoundNearest``, to change the mode, we can use ``with_rounding``. In the following example, ``1.2000000000000001`` cannot be represented, thus ``Julia`` rounds it to the nearest representable float-point number.
 
 .. code-block:: julia
-    :linenos:
+
 
     julia> 1.2000000000000001
     1.2000000000000002
@@ -71,12 +71,44 @@ The default rounding mode is ``RoundNearest``, to change the mode, we can use ``
 
 Linear Algebra
 ---------------
-Linear algebra functions in ``Julia`` are largely implemented by calling functions from LAPACK. Sparse factorizations call functions from SuiteSparse.
+Linear algebra functions in ``Julia`` are largely implemented by calling functions from `LAPACK`_. Sparse factorizations call functions from SuiteSparse.
 
-- Matrices factorization
-- Eigenvalues
+.. _LAPACK: http://www.netlib.org/lapack
+
+Matrices factorization
+^^^^^^^^^^^^^^^^^^^^^^
+
+For factorization algorithms, ``Julia`` has already implemented common routines as ``lu``, ``qr`` and ``schur``. The routines call ``LAPACK`` subroutines for decomposition algorithm in general. For example, ``lufact!`` calls ``LAPACK.getrf!`` to update matrices in place.
+
+.. code-block:: julia
+    :emphasize-lines: 3
+
+    function lufact!{T<:BlasFloat}(A::StridedMatrix{T};  pivot = true)
+        !pivot && return generic_lufact!(A,pivot = pivot)
+        lpt =  LAPACK.getrf!(A)
+        return LU{T, typeof(A)}(lpt[1], lpt[2], lpt[3])
+
+And ``LAPACK.getrf!`` calls ``getrf`` against the ``liblapack``.
+
+.. code-block:: julia
+    :emphasize-lines: 1-3
+
+    ccall(($(string(getrf)), liblapack), Void, Ptr{BlasInt}, 
+        Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt},
+        Ptr{BlasInt}, &m, &n, A, &lda, ipiv, info)
+
+Eigenvalues
+^^^^^^^^^^^^
 
 
+Solve ``Ax == b``
+^^^^^^^^^^^^^^^^^
+Solving linear system involves `direct method`_ and `iterative method`_.
+
+
+.. _direct method: http://en.wikipedia.org/wiki/direct_method
+
+.. _iterative method: http://en.wikipedia.org/wiki/iterative_method
 
 
 

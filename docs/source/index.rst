@@ -5,9 +5,6 @@
 
 Step In Julia - Alpha
 =========================================
-
-Contents:
-
 .. toctree::
    :maxdepth: 2
 
@@ -19,10 +16,10 @@ Contents:
 
 
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
 
