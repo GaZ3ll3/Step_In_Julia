@@ -4,12 +4,16 @@ function cg(A::Union(AbstractMatrix, Function),b::Vector;
 	tol::Real=1e-6,maxIter::Int64=1000,
 	M::Union(AbstractMatrix, Function)=x->x ,x0::Vector=[],out::Int64=0)
 
+
 	n = length(b)
 	nb = norm(b)
 	
+	# allocate memory once
 	Ap = zeros(eltype(b),n) 
-	Af =  isa(A,Function) ? A : x->A_mul_B!(Ap, A, x) # save space
-	Mf =  isa(M,Function) ? M : x->M\x
+	z  = zeros(eltype(b),n)
+
+	Af =  isa(A,Function) ? A : x->A_mul_B!(Ap, A, x) 
+	Mf =  isa(M,Function) ? M : x->A_ldiv_B!(z, M, x)
 	
 	if isempty(x0)
 		x0 = zeros(eltype(b),n)
@@ -17,6 +21,7 @@ function cg(A::Union(AbstractMatrix, Function),b::Vector;
 	else
 		r = b - Af(x0)
 	end	
+	
 	z = Mf(r)
 	p = copy(z)	
 			
