@@ -10,8 +10,13 @@ Step In Julia - Alpha
 
    ./introduction.rst
    ./math.rst
+   ./probability.rst
    ./graph.rst
    ./stats.rst
+   ./parallel.rst
+   ./data.rst
+   ./finance.rst
+   ./programming.rst
 
 
 

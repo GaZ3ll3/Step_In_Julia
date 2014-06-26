@@ -1,22 +1,8 @@
 **************
 Statistics
 **************
+Bayesian
+================
 
-Probability
-===========
-
-
-
-
-
-
-MCMC
-=====
-
-
-
-
-
-
-SDE
-=====
+Machine Learning
+================

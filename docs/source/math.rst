@@ -127,10 +127,6 @@ The above routines can be found through ``IterativeSolvers.jl``. In this reposit
 .. _iterative method: http://en.wikipedia.org/wiki/iterative_method
 
 
-
-
-
-
 .. _optim:
 
 Optimization
