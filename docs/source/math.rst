@@ -106,7 +106,7 @@ Eigenvalues & Singular Value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The most common routines ``eig`` and ``svd`` call ``LAPACK.geevx!`` and ``LAPACK.gesdd!`` relatively. 
 
-``svds`` does not exist but can be found with external package -- ``Pkg.Add("IterativeSolvers")``.
+``svds`` does not exist but can be found with external package -- ``"IterativeSolvers.jl``.
 
 Solve ``Ax == b``
 ^^^^^^^^^^^^^^^^^
@@ -116,18 +116,11 @@ Solving linear system involves `direct method`_ and `iterative method`_.
 
 For iterative methods, there are plenty of routines(preconditioned) to choose from, such as ``CG``, ``GMRES``, ``SOR``, ``SSOR``, ``Lanczos``.
 
-The above routines can be found through ``Pkg.Add("IterativeSolvers")``. 
+The above routines can be found through ``IterativeSolvers.jl``. In this repository, we store our routines in ``src`` directory, for example, following ``cg`` is stored in ``src/linalg/iterative``.  
 
-..  code-block:: julia
-
-    function cg(A::Union(AbstractMatrix, Function), b::Vector; tol::Real =
-        length(b)*eps(), maxIter::Int=length(b), P::Union(AbstractMatrix,
-        Function)=x->x, x::Vector=[], res::Int=0)
-
-
-
-
-
+.. literalinclude:: ../../src/linalg/iterative/cg.jl
+   :language: julia
+   :lines: 3-5
 
 .. _direct method: http://en.wikipedia.org/wiki/direct_method
 
