@@ -106,7 +106,7 @@ Eigenvalues & Singular Value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The most common routines ``eig`` and ``svd`` call ``LAPACK.geevx!`` and ``LAPACK.gesdd!`` relatively. 
 
-``svds`` does not exist but can be found with external package -- ``"IterativeSolvers.jl``.
+``svds`` does not exist but can be found with external package -- ``IterativeSolvers.jl``.
 
 Solve ``Ax == b``
 ^^^^^^^^^^^^^^^^^
@@ -116,9 +116,13 @@ Solving linear system involves `direct method`_ and `iterative method`_.
 
 For iterative methods, there are plenty of routines(preconditioned) to choose from, such as ``CG``, ``GMRES``, ``SOR``, ``SSOR``, ``Lanczos``.
 
-The above routines can be found through ``IterativeSolvers.jl``. In this repository, we store our routines in ``src`` directory, for example, following ``cg`` is stored in ``src/linalg/iterative``.  
+The above routines can be found through ``IterativeSolvers.jl`` for ``0.2.1-``. In this repository, we store our ``0.3.0+`` compatible routines in ``src`` directory, for example, following routines are stored in ``src/linalg/iterative``.  
 
 .. literalinclude:: ../../src/linalg/iterative/cg.jl
+   :language: julia
+   :lines: 3-5
+
+.. literalinclude:: ../../src/linalg/iterative/gmres.jl
    :language: julia
    :lines: 3-5
 
@@ -131,7 +135,7 @@ The above routines can be found through ``IterativeSolvers.jl``. In this reposit
 
 Optimization
 -------------
-``JuliaOpt`` has built some handy tools on optimization, including ``Optim``. 
+``JuliaOpt`` has built pure ``Julia`` package ``Optim`` for general optimization algorithms. Another package ``JuMP`` involves linear- and quadratic-constrained problems, which supports ``Ipopt`` through wrapper ``Ipopt.jl``.
 
 .. _approx:
 

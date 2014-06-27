@@ -10,10 +10,9 @@ function cg(A::Union(AbstractMatrix, Function),b::Vector;
 	
 	# allocate memory once
 	Ap = zeros(eltype(b),n) 
-	z  = zeros(eltype(b),n)
 
 	Af =  isa(A,Function) ? A : x->A_mul_B!(Ap, A, x) 
-	Mf =  isa(M,Function) ? M : x->A_ldiv_B!(z, M, x)
+	Mf =  isa(M,Function) ? M : x->M\x
 	
 	if isempty(x0)
 		x0 = zeros(eltype(b),n)
@@ -21,7 +20,7 @@ function cg(A::Union(AbstractMatrix, Function),b::Vector;
 	else
 		r = b - Af(x0)
 	end	
-	
+
 	z = Mf(r)
 	p = copy(z)	
 			
