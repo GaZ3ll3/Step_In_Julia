@@ -32,7 +32,7 @@ Machine Representation of Numbers
     julia> sizeof(float16(1.0)*2)
     4
 
-``NaN`` and ``Inf`` (as well as ``-Inf``) are special float-points(IEC559), and can be cast into all float-point types also be used in arithmetic operations.
+``NaN`` and ``Inf`` (as well as ``-Inf``) are special floating-points(IEC559), and can be cast into all floating-point types also be used in arithmetic operations.
 
 .. code-block:: julia
 
@@ -56,7 +56,7 @@ Epsilon function ``eps`` gives machine accuracy. For single and double accuracy,
     julia> eps(Float64)
     2.220446049250313e-16
 
-The default rounding mode is ``RoundNearest``, to change the mode, we can use ``with_rounding``. In the following example, ``1.2000000000000001`` cannot be represented, thus ``Julia`` rounds it to the nearest representable float-point number.
+The default rounding mode is ``RoundNearest``, to change the mode, we can use ``with_rounding``. In the following example, ``1.2000000000000001`` cannot be represented, thus ``Julia`` rounds it to the nearest representable floating-point number.
 
 .. code-block:: julia
 
@@ -151,6 +151,21 @@ Approximation & Differentiation
 
 Quadrature
 --------------
+``Julia`` has builtin support for one-dimensional integration as ``quadgk``, using adaptive *Gauss-Kronrod* algorithm. 
+
+.. code-block:: julia
+    :emphasize-lines: 1-4
+
+    function quadgk{T<:FloatingPoint}(f, a::Complex{T},
+                                      b::Complex{T}, c::Complex{T}...,
+                                      abstol=zero(T), reltol=sqrt(eps(T))
+                                      maxevals=10^7, order=7,norm=vecnorm)
+        do_quadgk(f, [a,b,c...], order, T, abstol, reltol, maxevals, norm)
+    end
+
+For multi-dimensional case(including one dimensional), external package ``Cubature.jl`` can handle integrand over multi-dimensional box. 
+
+In ``/src/integr``, we made more quadrature functions for use.
 
 
 .. _ode:
