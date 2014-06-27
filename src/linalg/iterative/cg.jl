@@ -29,7 +29,7 @@ function cg(A::Union(AbstractMatrix, Function),b::Vector;
 	iter   = 1 
 	flag   = 1
 	
-	for iter=1:maxIter
+	@inbounds for iter=1:maxIter
 		Ap = Af(p)
 		gamma = dot(r,z)
 		alpha = gamma/dot(p,Ap)

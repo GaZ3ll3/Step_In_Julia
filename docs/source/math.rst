@@ -135,7 +135,9 @@ The above routines can be found through ``IterativeSolvers.jl`` for ``0.2.1-``. 
 
 Optimization
 -------------
-``JuliaOpt`` has built pure ``Julia`` package ``Optim`` for general optimization algorithms. Another package ``JuMP`` involves linear- and quadratic-constrained problems, which supports ``Ipopt`` through wrapper ``Ipopt.jl``.
+``JuliaOpt`` has built pure ``Julia`` package ``Optim`` for general optimization algorithms. Another package ``JuMP`` involves linear- and quadratic-constrained problems, which supports `Ipopt`_ through wrapper ``Ipopt.jl`` and many other solvers -- ``Cbc``, ``MOSEK``, ``Gurobi``, etc.
+
+.. _Ipopt: https://projects.coin-or.org/Ipopt
 
 .. _approx:
 

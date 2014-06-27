@@ -47,23 +47,23 @@ function gmres(A::Union(AbstractMatrix, Function), b::Vector; restart::Int64=20,
 	flag = -1
 	cnt  = 1
 
-	for iter = 1:maxIter
+	@inbounds for iter = 1:maxIter
 		s[1]      = norm( r );  
 		V[:,1]    = r / s[1];
 		
-		for i = 1:restart
+		@inbounds for i = 1:restart
 			w = Af(V[:,i])
 			# A_mul_B!(w, A, V[:,i]) # save space if A is matrix
 			w = Mf(w)
 			
-			for k = 1:i # basis using Gram-Schmidt
+			@inbounds for k = 1:i # basis using Gram-Schmidt
 				H[k,i] = dot(w,V[:,k])
 				BLAS.axpy!(n,-H[k,i],V[:,k],1,w,1)
 			end
 			H[i+1,i] = norm( w )
 			V[:,i+1] = w / H[i+1,i]
 			
-			for k = 1:i-1 # apply Givens rotation
+			@inbounds for k = 1:i-1 # apply Givens rotation
 				temp     =  cs[k]*H[k,i] + sn[k]*H[k+1,i]
 				H[k+1,i] = -sn[k]*H[k,i] + cs[k]*H[k+1,i]
 				H[k,i]   = temp
