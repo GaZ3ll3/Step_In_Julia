@@ -177,6 +177,8 @@ Ordinary Differential Equation
 
 Partial Differential Equation
 ------------------------------
+For solving partial differential equations, numerically we have lots of choices from various schemes on finite difference method or finite volume and finite element method. However, right now at ``prerelease 0.3.0``, there is no public packages on this. And integration of ``PETsc`` into ``Julia`` is absolutely a clever way to reuse the highly optimized and parallelized codes, again, there is no easy job.
+ 
 
 Symbolic Computation
 ===========================
