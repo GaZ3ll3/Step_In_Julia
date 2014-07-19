@@ -12,5 +12,5 @@ Task List
 ----------
 - [x] ``95%`` -- ``Numbers and Julia`` 
 - [x] ``60%`` -- ``Linear Algebra``
-- [x] ``Probability``
-- [x] ``Differential Eqns``
+- [ ] ``Probability``
+- [ ] ``Differential Eqns``
